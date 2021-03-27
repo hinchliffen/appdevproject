@@ -16,15 +16,16 @@ public class Activity3 extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.content_3);
-        Button activity3_btn = (Button)findViewById(R.id.activity3_button);
+        Button activity3_btn = (Button) findViewById(R.id.activity3_button);
 
-        activity3_btn.setOnClickListener(new View.OnClickListener(){
-            @Override public void onClick(View v) {
-                Intent intent= new Intent();
+        activity3_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = getIntent();
                 intent.setClass(Activity3.this, Activity4.class);
 
-                Bundle bundle= new Bundle();
-                bundle.putString("name","Michael");
+                Bundle bundle = intent.getExtras();
+                bundle.putString("name", "Michael");
                 bundle.putInt("age", 22);
 
                 intent.putExtras(bundle);
@@ -35,8 +36,5 @@ public class Activity3 extends AppCompatActivity {
         });
 
 
-
     }
-
-
 }
