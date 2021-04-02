@@ -12,4 +12,6 @@
     <string name="time_to_exercise_focus">Time to Exercise Focus:</string>
     <string name="am">AM</string>
     <string name="pm">PM</string>
+    <string name="firstButton">Let\'s get started</string>
+    <string name="app_name1">Move!</string>
 </resources>
