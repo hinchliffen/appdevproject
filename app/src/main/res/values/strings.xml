@@ -8,6 +8,8 @@
     <string name="go_to_4">Go To Activity 4</string>
     <string name="this_is_4">This is Activity 4</string>
     <string name="go_to_1">Go To Activity 1</string>
+    <string name="move">Move!</string>
+    <string name="lgs">Let\'s get started!</string>
     <string name="name">Name:</string>
     <string name="time_to_exercise_focus">Time to Exercise Focus:</string>
     <string name="am">AM</string>
