@@ -1,8 +1,12 @@
 # appdevproject
 For Friday:
+
 Nick: Styling page
+
 Ari: Locking outside apps
+
 Michael: Setting a timer
+
 Chris: Saving state of the 4th activity page
 
 _______________________
