@@ -50,13 +50,17 @@ public class Activity2 extends AppCompatActivity {
                 bundle.putString("nameInput", nameInput);
                 bundle.putString("timeInput", timeInput);
                 bundle.putString("timeOfDay", dayOrNight);
-                bundle.putString("name","Michael");
-                bundle.putInt("age", 22);
 
                 intent.putExtras(bundle);
                 startActivity(intent);
 
+                //LogV statements to better see what is data is being sent between Activities
                 Log.v("myApp", "Activity2 button is clicked");
+                Log.v("myApp", "This is what Activity2 bundled: ");
+                Log.v("myApp", "nameInput: "+ nameInput );
+                Log.v("myApp", "timeInput: "+ timeInput );
+                Log.v("myApp", "dayOrNight: "+ dayOrNight );
+
             }
         });
 

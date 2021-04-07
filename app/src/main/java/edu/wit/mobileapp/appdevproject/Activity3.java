@@ -25,13 +25,12 @@ public class Activity3 extends AppCompatActivity {
                 intent.setClass(Activity3.this, Activity4.class);
 
                 Bundle bundle = intent.getExtras();
-                bundle.putString("name", "Michael");
-                bundle.putInt("age", 22);
 
                 intent.putExtras(bundle);
                 startActivity(intent);
 
-                Log.v("myApp", "Activity1 button is clicked");
+
+                Log.v("myApp", "Activity3 button is clicked");
             }
         });
 
