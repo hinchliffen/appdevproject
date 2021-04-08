@@ -38,7 +38,7 @@ public class Activity4 extends AppCompatActivity {
         timerText = (TextView) findViewById(R.id.textView2);
         timerText.setText("Not exercising yet - Timer will appear here");
 
-        //dropdown menu for exercise time
+        //dropdown menu for exercise interval time
         Spinner myspinner = (Spinner) findViewById(R.id.spinner1);
 
         ArrayAdapter<String> myAdapter = new ArrayAdapter<String>(Activity4.this,
@@ -65,6 +65,7 @@ public class Activity4 extends AppCompatActivity {
         nameOutput.setText("Hello " + uname + "!");
         timeOutput.setText(time + " " + timeOfDay);
 
+        //Below code deals with the timer functionality
         //Get current time here
         SimpleDateFormat sdf = new SimpleDateFormat("hh:mmaa", Locale.getDefault());
         String currentTime = sdf.format(new Date());
@@ -84,55 +85,138 @@ public class Activity4 extends AppCompatActivity {
 
         //Setup new thread that will automatically check if it's time to start exercising
         Runnable runnable = new Runnable(){
+            boolean currentlyExercising = false;
             @Override
             public void run() {
-                String time = bundle.getString("timeInput");
-                String timeOfDay = bundle.getString("timeOfDay");
-                String startTime = time + timeOfDay;
-                //Now clean startTime format
-                Log.v("myApp", "the startTime before cleaning here is: " + startTime);
-                SimpleDateFormat dateFormat = new SimpleDateFormat("hh:mmaa");
-                SimpleDateFormat dateFormat2 = new SimpleDateFormat("hh:mmaa");
-                try {
-                    Date date = dateFormat.parse(startTime);
-                    startTime = dateFormat2.format(date);
-                } catch (ParseException e) {
-                    //Invalid user input if we get inside here
-                }
-                Log.v("myApp", "the startTime after cleaning here is: " + startTime);
+                while (1 == 1) { //Timer shall work forever and ever
+                    if (currentlyExercising == true) {
+                        Log.v("myApp", "i am currently exercising, not checking or doing anything else for now");
+                        try { Thread.sleep(1000); }
+                        catch (InterruptedException ex) { //code should never be here
+                        }
+                        continue;
+                    }
+                    String time = bundle.getString("timeInput");
+                    String timeOfDay = bundle.getString("timeOfDay");
+                    String startTime = time + timeOfDay;
+                    //Now clean startTime format
+                    Log.v("myApp", "the startTime before cleaning here is: " + startTime);
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("hh:mmaa");
+                    SimpleDateFormat dateFormat2 = new SimpleDateFormat("hh:mmaa");
+                    try {
+                        Date date = dateFormat.parse(startTime);
+                        startTime = dateFormat2.format(date);
+                    } catch (ParseException e) {
+                        //Invalid user input if we get inside here
+                    }
+                    Log.v("myApp", "the startTime after cleaning here is: " + startTime);
 
-                boolean isTimeToExercise = false;
-                while (isTimeToExercise == false) {
-                    //get current time
-                    SimpleDateFormat sdf = new SimpleDateFormat("hh:mmaa", Locale.getDefault());
-                    String currentTime = sdf.format(new Date());
-                    Log.v("myApp", "The current time is: " + currentTime);
-                    if (startTime.equals(currentTime)) {
-                        isTimeToExercise = true;
+                    boolean isTimeToExercise = false;
+                    while (isTimeToExercise == false) { //Loop to continuously check the time and check if it's time to start exercising
+                        //get current time
+                        SimpleDateFormat sdf = new SimpleDateFormat("hh:mmaa", Locale.getDefault());
+                        String currentTime = sdf.format(new Date());
+                        Log.v("myApp", "Checking to see if it's time to start exercising: The current time is: " + currentTime);
+                        if (startTime.equals(currentTime)) {
+                            isTimeToExercise = true;
+                        }
+                        try { Thread.sleep(1000); }
+                        catch (InterruptedException ex) { //code should never be here
+                        }
                     }
-                    try { Thread.sleep(1000); }
-                    catch (InterruptedException ex) { //shouldnt ever be here
-                    }
+
+                    //The below will run when it is time to start exercising
+                    runOnUiThread(new Runnable() { //This gets around an error "Only the original thread that created a view hierarchy can touch its views" somehow
+                        @Override
+                        public void run() { //Time to exercise / run no pun intended
+                            currentlyExercising = true;
+                            //First check what interval user selected
+                            Spinner mySpinner = (Spinner) findViewById(R.id.spinner1);
+                            String selectedInterval = mySpinner.getSelectedItem().toString();
+                            //Run code block depending on what user picked for their interval
+                            if (selectedInterval.equals("1 x 30 minutes")) {//If user selected 1x30 interval
+                                nameOutput.setText("EXERCISE NOW!!!");
+                                new CountDownTimer(60000+60000+60000, 1000) {
+                                    public void onTick(long millisUntilFinished) {
+                                        timerText.setText("seconds til you can go on Insta again: " + millisUntilFinished / 1000);
+                                    }
+                                    public void onFinish() {
+                                        timerText.setText("Done! - Not exercising yet - Timer will appear here");
+                                        nameOutput.setText("Hello " + uname + "!");
+                                        currentlyExercising = false;
+                                    }
+                                }.start();
+                            }
+                            else if(selectedInterval.equals("2 x 15 minutes")) { //If user selected 2x15 interval
+                                nameOutput.setText("EXERCISE NOW!!!");
+                                new CountDownTimer(60000+60000, 1000) {
+                                    public void onTick(long millisUntilFinished) {
+                                        timerText.setText("seconds til you can go on Insta again: " + millisUntilFinished / 1000);
+                                    }
+                                    public void onFinish() {
+                                        timerText.setText("Done! Last interval in 1 hour...");
+                                        nameOutput.setText("Hello " + uname + "!");
+                                        currentlyExercising = false;
+                                    }
+                                }.start();
+                                //1stinterval done at this point
+
+                                //First update startTime so it is 1 hour ahead of current
+
+                                //Next, display that time to user
+
+                                //Then, check time until it is time again to exercise
+                            }
+
+                            else if(selectedInterval.equals("3 x 10 minutes")) { //If user selected 3x10 interval
+                                nameOutput.setText("EXERCISE NOW!!!");
+                                new CountDownTimer(60000, 1000) {
+                                    public void onTick(long millisUntilFinished) {
+                                        timerText.setText("seconds til you can go on Insta again: " + millisUntilFinished / 1000);
+                                    }
+                                    public void onFinish() {
+                                        timerText.setText("Done! Next interval in 1 hour...");
+                                        nameOutput.setText("Hello " + uname + "!");
+                                        currentlyExercising = false;
+                                    }
+                                }.start();
+
+                                //1st interval done at this point
+
+                                //First update startTime so it is 1 hour ahead of current
+
+                                //Next, display that time to user
+
+                                //Then, check time until it is time again to exercise
+
+                                //When it's time, Exercise until timer is done
+
+                                //2nd interval done at this point
+
+                                //Then, update startTime so it is 1 hour ahead of current
+
+                                //Next, display that time to user
+
+                                //Then, check time until it is time again to exercise
+
+                                //When it's time, exercise. this is the last interval. Exit back to outer while loop
+                            }
+                        }
+                    });
                 }
-                runOnUiThread(new Runnable() { //This gets around an error "Only the original thread that created a view hierarchy can touch its views" somehow
-                    @Override
-                    public void run() {
-                        nameOutput.setText("EXERCISE NOW!!!");
-                        new CountDownTimer(60000, 1000) {
-                            public void onTick(long millisUntilFinished) {
-                                timerText.setText("seconds til u can go on insta again: " + millisUntilFinished / 1000);
-                            }
-                            public void onFinish() {
-                                timerText.setText("done!");
-                            }
-                        }.start();
-                    }
-                });
+
             }
         };
 
         Thread thread = new Thread(runnable);
         thread.start();
+
+        //Get the user's selected exercise interval 1x30, 2x15 or 3x10
+        Spinner mySpinner = (Spinner) findViewById(R.id.spinner1);
+        String selectedInterval = mySpinner.getSelectedItem().toString();
+        Log.v("myApp", "selectedInterval is: " + selectedInterval);
+
+
 
         Log.v("myApp", "onCreate finished running - Running Activity4");
 
