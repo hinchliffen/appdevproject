@@ -21,7 +21,10 @@ public class Activity4 extends AppCompatActivity {
 
     TextView nameOutput, timeOutput;
     TextView timerText;
-
+    int intervalNumber = 0;
+    int milisecondsIn15Minutes = 900000;
+    int milisecondsIn60Minutes = 3600000;
+    int milisecondsIn75Minutes = 4500000;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,6 +68,7 @@ public class Activity4 extends AppCompatActivity {
         nameOutput.setText("Hello " + uname + "!");
         timeOutput.setText(time + " " + timeOfDay);
 
+
         //Below code deals with the timer functionality
         //Get current time here
         SimpleDateFormat sdf = new SimpleDateFormat("hh:mmaa", Locale.getDefault());
@@ -96,27 +100,64 @@ public class Activity4 extends AppCompatActivity {
                         }
                         continue;
                     }
-                    String time = bundle.getString("timeInput");
-                    String timeOfDay = bundle.getString("timeOfDay");
-                    String startTime = time + timeOfDay;
-                    //Now clean startTime format
-                    Log.v("myApp", "the startTime before cleaning here is: " + startTime);
-                    SimpleDateFormat dateFormat = new SimpleDateFormat("hh:mmaa");
-                    SimpleDateFormat dateFormat2 = new SimpleDateFormat("hh:mmaa");
-                    try {
-                        Date date = dateFormat.parse(startTime);
-                        startTime = dateFormat2.format(date);
-                    } catch (ParseException e) {
-                        //Invalid user input if we get inside here
+                    String startTime;
+                    if (intervalNumber == 0) {
+                        String time = bundle.getString("timeInput");
+                        String timeOfDay = bundle.getString("timeOfDay");
+                        startTime = time + timeOfDay;
                     }
-                    Log.v("myApp", "the startTime after cleaning here is: " + startTime);
+                    else if (intervalNumber == 1) { //i dont think this elseif block ever runs but im scared to delete it
+                        String time = bundle.getString("timeInput");
+                        String timeOfDay = bundle.getString("timeOfDay");
+                        startTime = time + timeOfDay;
+                        SimpleDateFormat format = new SimpleDateFormat("hh:mmaa");
+                        try {
+                            Date date = format.parse(startTime);
+                            date.setTime(date.getTime() + 120000);
+                            startTime = dateFormat.format(date);
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    else {
+                        String time = bundle.getString("timeInput");
+                        String timeOfDay = bundle.getString("timeOfDay");
+                        startTime = time + timeOfDay;
+                    }
+                    //Now clean startTime format
+                    if (intervalNumber == 0) {
+                        Log.v("myApp", "the startTime before cleaning here is: " + startTime);
+                        SimpleDateFormat dateFormat = new SimpleDateFormat("hh:mmaa");
+                        SimpleDateFormat dateFormat2 = new SimpleDateFormat("hh:mmaa");
+                        try {
+                            Date date = dateFormat.parse(startTime);
+                            startTime = dateFormat2.format(date);
+                        } catch (ParseException e) {
+                            //Invalid user input if we get inside here
+                        }
+                        Log.v("myApp", "the startTime after cleaning here is: " + startTime);
+                    }
+                    else if (intervalNumber == 2) {
+                        Log.v("myApp", "the startTime before cleaning here is: " + startTime);
+                        SimpleDateFormat dateFormat = new SimpleDateFormat("hh:mmaa");
+                        SimpleDateFormat dateFormat2 = new SimpleDateFormat("hh:mmaa");
+                        try {
+                            Date date = dateFormat.parse(startTime);
+                            date.setTime(date.getTime()+ 120000);
+                            startTime = dateFormat2.format(date);
+                        } catch (ParseException e) {
+                            //Invalid user input if we get inside here
+                        }
+                        Log.v("myApp", "the startTime after cleaning here is: " + startTime);
+                    }
 
                     boolean isTimeToExercise = false;
                     while (isTimeToExercise == false) { //Loop to continuously check the time and check if it's time to start exercising
                         //get current time
                         SimpleDateFormat sdf = new SimpleDateFormat("hh:mmaa", Locale.getDefault());
                         String currentTime = sdf.format(new Date());
-                        Log.v("myApp", "Checking to see if it's time to start exercising: The current time is: " + currentTime);
+                        Log.v("myApp", "intervalNumber is"+intervalNumber+"Checking to see if it's time to start exercising: The current time is: " + currentTime);
+                        Log.v("myApp", "Checking to see if it's time to start exercising: The interval start time is: " + startTime);
                         if (startTime.equals(currentTime)) {
                             isTimeToExercise = true;
                         }
@@ -133,8 +174,10 @@ public class Activity4 extends AppCompatActivity {
                             //First check what interval user selected
                             Spinner mySpinner = (Spinner) findViewById(R.id.spinner1);
                             String selectedInterval = mySpinner.getSelectedItem().toString();
+
                             //Run code block depending on what user picked for their interval
                             if (selectedInterval.equals("1 x 30 minutes")) {//If user selected 1x30 interval
+                                Log.v("myApp", "1x30 interval code executing");
                                 nameOutput.setText("EXERCISE NOW!!!");
                                 new CountDownTimer(60000+60000+60000, 1000) {
                                     public void onTick(long millisUntilFinished) {
@@ -148,27 +191,57 @@ public class Activity4 extends AppCompatActivity {
                                 }.start();
                             }
                             else if(selectedInterval.equals("2 x 15 minutes")) { //If user selected 2x15 interval
-                                nameOutput.setText("EXERCISE NOW!!!");
-                                new CountDownTimer(60000+60000, 1000) {
-                                    public void onTick(long millisUntilFinished) {
-                                        timerText.setText("seconds til you can go on Insta again: " + millisUntilFinished / 1000);
-                                    }
-                                    public void onFinish() {
-                                        timerText.setText("Done! Last interval in 1 hour...");
-                                        nameOutput.setText("Hello " + uname + "!");
-                                        currentlyExercising = false;
-                                    }
-                                }.start();
-                                //1stinterval done at this point
+                                if (intervalNumber == 0) {
+                                    Log.v("myApp", "2x15 interval 1 code executing");
+                                    nameOutput.setText("EXERCISE NOW!!!");
+                                    new CountDownTimer(milisecondsIn15Minutes, 1000) {
+                                        public void onTick(long millisUntilFinished) {
+                                            timerText.setText("seconds til you can go on Insta again: " + millisUntilFinished / 1000);
+                                        }
+                                        public void onFinish() {
+                                            timerText.setText("Done! Last interval in 1 hour...");
+                                            nameOutput.setText("Hello " + uname + "!");
+                                            currentlyExercising = false;
+                                            intervalNumber = intervalNumber + 1;
+                                            //add 2 mins to startTime to show when next interval is
+                                            String startTime = time + timeOfDay;
+                                            SimpleDateFormat dateFormat = new SimpleDateFormat("hh:mmaa");
+                                            SimpleDateFormat dateFormat2 = new SimpleDateFormat("hh:mmaa");
+                                            try {
+                                                Date date = dateFormat.parse(startTime);
+                                                date.setTime(date.getTime()+ milisecondsIn75Minutes);
+                                                String newStartTime = dateFormat2.format(date);
+                                                timeOutput.setText(newStartTime);
+                                            } catch (ParseException e) {
+                                                //Invalid user input if we get inside here
+                                            }
 
-                                //First update startTime so it is 1 hour ahead of current
+                                        }
+                                    }.start();
+                                }
+                                else if (intervalNumber == 2) {
+                                    Log.v("myApp", "2x15 interval 2 code executing");
+                                    nameOutput.setText("EXERCISE NOW!!!");
+                                    new CountDownTimer(milisecondsIn15Minutes, 1000) {
+                                        public void onTick(long millisUntilFinished) {
+                                            timerText.setText("seconds til you can go on Insta again: " + millisUntilFinished / 1000);
+                                        }
+                                        public void onFinish() {
+                                            timerText.setText("Done! No more intervals today");
+                                            nameOutput.setText("Hello " + uname + "!");
+                                            currentlyExercising = false;
+                                            intervalNumber = 0;
+                                            timeOutput = (TextView) findViewById(R.id.timeinput);
+                                            timeOutput.setText(time + " " + timeOfDay);
+                                        }
+                                    }.start();
+                                }
 
-                                //Next, display that time to user
 
-                                //Then, check time until it is time again to exercise
                             }
 
                             else if(selectedInterval.equals("3 x 10 minutes")) { //If user selected 3x10 interval
+                                Log.v("myApp", "3x10 interval code executing");
                                 nameOutput.setText("EXERCISE NOW!!!");
                                 new CountDownTimer(60000, 1000) {
                                     public void onTick(long millisUntilFinished) {
