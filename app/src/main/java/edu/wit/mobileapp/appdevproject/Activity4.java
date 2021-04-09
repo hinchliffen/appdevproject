@@ -113,7 +113,7 @@ public class Activity4 extends AppCompatActivity {
                         SimpleDateFormat format = new SimpleDateFormat("hh:mmaa");
                         try {
                             Date date = format.parse(startTime);
-                            date.setTime(date.getTime() + 120000);
+                            date.setTime(date.getTime() + milisecondsIn75Minutes);
                             startTime = dateFormat.format(date);
                         } catch (ParseException e) {
                             e.printStackTrace();
@@ -143,7 +143,7 @@ public class Activity4 extends AppCompatActivity {
                         SimpleDateFormat dateFormat2 = new SimpleDateFormat("hh:mmaa");
                         try {
                             Date date = dateFormat.parse(startTime);
-                            date.setTime(date.getTime()+ 120000);
+                            date.setTime(date.getTime()+ milisecondsIn75Minutes);
                             startTime = dateFormat2.format(date);
                         } catch (ParseException e) {
                             //Invalid user input if we get inside here
