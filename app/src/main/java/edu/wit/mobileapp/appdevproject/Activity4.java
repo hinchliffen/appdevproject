@@ -103,7 +103,7 @@ public class Activity4 extends AppCompatActivity {
 
                         Log.v("myApp", "Distance Male: " + distance);
                     } else {
-                        distance = Math.round((((totalSteps * 2.5) / 5280)*100.0)/100.0);
+                        distance = Math.round((((totalSteps * 2.2) / 5280)*100.0)/100.0);
                         Log.v("myApp", "Distance Female: " + distance);
                     }
                     distanceOutput.setText(distance + " miles");
