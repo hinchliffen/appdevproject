@@ -2,10 +2,15 @@ package edu.wit.mobileapp.appdevproject;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.util.Log;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -19,43 +24,68 @@ import edu.wit.mobileapp.appdevproject.R;
 
 public class Activity4 extends AppCompatActivity {
 
-    TextView nameOutput, timeOutput;
-    TextView timerText;
+    TextView nameOutput, timeOutput, timerText;
     int intervalNumber = 0;
     int milisecondsIn15Minutes = 900000;
     int milisecondsIn60Minutes = 3600000;
     int milisecondsIn75Minutes = 4500000;
+    RadioButton rb;
+    int maleOrFemale;
+    String mOrF;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.content_4);
 
-        Bundle bundle = this.getIntent().getExtras();
+        Intent intent = getIntent();
+        Bundle bundle = intent.getExtras();
+
+        RadioGroup rg = findViewById(R.id.radioGroup2);
+
+        //Get the user's selected exercise interval 1x30, 2x15 or 3x10
+        Spinner mySpinner = findViewById(R.id.spinner1);
+
+        ArrayAdapter<String> myAdapter = new ArrayAdapter<>(Activity4.this,
+                android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.names));
+        myAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mySpinner.setAdapter(myAdapter);
 
         Log.v("myApp", "This is what Activity4 has access to from the bundle: ");
         Log.v("myApp", "nameInput: " + bundle.getString("nameInput"));
         Log.v("myApp", "timeInput: " + bundle.getString("timeInput" ));
         Log.v("myApp", "timeOfDay: "+ bundle.getString("timeOfDay"));
 
+        Button activity4_btn = findViewById(R.id.button);
+
+        activity4_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent newIntent = new Intent();
+                Bundle newBundle = new Bundle();
+                newIntent.setClass(Activity4.this, Steps.class);
+
+                //find the checked radiobutton in group
+                maleOrFemale = rg.getCheckedRadioButtonId();
+
+                //associate button with id
+                rb = findViewById(maleOrFemale);
+                mOrF = rb.getText().toString();
+
+                //put string in bundle
+                newBundle.putString("gender", mOrF);
+                newIntent.putExtras(newBundle);
+
+                startActivity(newIntent);
+                finish();
+            }
+        });
+
+        Log.v("myApp", "Activity4 button clicked");
+
         //timer
         timerText = (TextView) findViewById(R.id.textView2);
         timerText.setText("Not exercising yet - Timer will appear here");
-
-        //dropdown menu for exercise interval time
-        Spinner myspinner = (Spinner) findViewById(R.id.spinner1);
-
-        ArrayAdapter<String> myAdapter = new ArrayAdapter<String>(Activity4.this,
-                android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.names));
-        myAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        myspinner.setAdapter(myAdapter);
-
-        //dropdown menu for time increments
-        Spinner myspinner2 = (Spinner) findViewById(R.id.spinner2);
-
-        ArrayAdapter<String> myAdapter2 = new ArrayAdapter<String>(Activity4.this,
-                android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.names2));
-        myAdapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        myspinner2.setAdapter(myAdapter2);
 
         //getting information from EditText in bundle
         String uname = bundle.getString("nameInput");
@@ -67,7 +97,6 @@ public class Activity4 extends AppCompatActivity {
         timeOutput = (TextView) findViewById(R.id.timeinput);
         nameOutput.setText("Hello " + uname + "!");
         timeOutput.setText(time + " " + timeOfDay);
-
 
         //Below code deals with the timer functionality
         //Get current time here
@@ -113,7 +142,7 @@ public class Activity4 extends AppCompatActivity {
                         SimpleDateFormat format = new SimpleDateFormat("hh:mmaa");
                         try {
                             Date date = format.parse(startTime);
-                            date.setTime(date.getTime() + milisecondsIn75Minutes);
+                            date.setTime(date.getTime() + 120000);
                             startTime = dateFormat.format(date);
                         } catch (ParseException e) {
                             e.printStackTrace();
@@ -143,7 +172,7 @@ public class Activity4 extends AppCompatActivity {
                         SimpleDateFormat dateFormat2 = new SimpleDateFormat("hh:mmaa");
                         try {
                             Date date = dateFormat.parse(startTime);
-                            date.setTime(date.getTime()+ milisecondsIn75Minutes);
+                            date.setTime(date.getTime()+ 120000);
                             startTime = dateFormat2.format(date);
                         } catch (ParseException e) {
                             //Invalid user input if we get inside here
@@ -185,7 +214,6 @@ public class Activity4 extends AppCompatActivity {
                                     }
                                     public void onFinish() {
                                         timerText.setText("Done! - Not exercising yet - Timer will appear here");
-                                        nameOutput.setText("Hello " + uname + "!");
                                         currentlyExercising = false;
                                     }
                                 }.start();
@@ -200,7 +228,6 @@ public class Activity4 extends AppCompatActivity {
                                         }
                                         public void onFinish() {
                                             timerText.setText("Done! Last interval in 1 hour...");
-                                            nameOutput.setText("Hello " + uname + "!");
                                             currentlyExercising = false;
                                             intervalNumber = intervalNumber + 1;
                                             //add 2 mins to startTime to show when next interval is
@@ -284,15 +311,8 @@ public class Activity4 extends AppCompatActivity {
         Thread thread = new Thread(runnable);
         thread.start();
 
-        //Get the user's selected exercise interval 1x30, 2x15 or 3x10
-        Spinner mySpinner = (Spinner) findViewById(R.id.spinner1);
-        String selectedInterval = mySpinner.getSelectedItem().toString();
-        Log.v("myApp", "selectedInterval is: " + selectedInterval);
-
-
-
         Log.v("myApp", "onCreate finished running - Running Activity4");
+
 
     }
 }
-
