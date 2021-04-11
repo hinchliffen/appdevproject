@@ -16,10 +16,10 @@ import edu.wit.mobileapp.appdevproject.R;
 
 public class Activity2 extends AppCompatActivity {
 
-    String nameInput, timeInput, dayOrNight;
+    String nameInput, timeInput, dayOrNight, mOrF;
     EditText inputName, inputTime;
-    int amOrPm;
-    RadioButton rb;
+    int amOrPm, maleOrFemale;
+    RadioButton rb, rb2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +29,13 @@ public class Activity2 extends AppCompatActivity {
         //Creating EditText variables
         inputName = (EditText) findViewById(R.id.editTextNumber1);
         inputTime = (EditText) findViewById(R.id.editTextTime);
+        //am or pm
         RadioGroup rg = (RadioGroup) findViewById(R.id.radioGroup2);
+        //gender
+        RadioGroup rg2 = findViewById(R.id.radioGroup);
+
+        //associate button with id
+        rb = findViewById(maleOrFemale);
 
         activity2_btn.setOnClickListener(new View.OnClickListener(){
             @Override public void onClick(View v) {
@@ -42,17 +48,23 @@ public class Activity2 extends AppCompatActivity {
                 timeInput = inputTime.getText().toString();
                 //find the checked radiobutton in group
                 amOrPm = rg.getCheckedRadioButtonId();
+                maleOrFemale = rg2.getCheckedRadioButtonId();
                 //associate button with id
                 rb = (RadioButton) findViewById(amOrPm);
                 dayOrNight = rb.getText().toString();
+                //associate button with id
+                rb = findViewById(maleOrFemale);
+                mOrF = rb.getText().toString();
 
                 //Putting Strings in bundle
                 bundle.putString("nameInput", nameInput);
                 bundle.putString("timeInput", timeInput);
                 bundle.putString("timeOfDay", dayOrNight);
+                bundle.putString("gender", mOrF);
 
                 intent.putExtras(bundle);
                 startActivity(intent);
+                finish();
 
                 //LogV statements to better see what is data is being sent between Activities
                 Log.v("myApp", "Activity2 button is clicked");
@@ -60,6 +72,7 @@ public class Activity2 extends AppCompatActivity {
                 Log.v("myApp", "nameInput: "+ nameInput );
                 Log.v("myApp", "timeInput: "+ timeInput );
                 Log.v("myApp", "dayOrNight: "+ dayOrNight );
+                Log.v("myApp", "maleOrFemale: "+ mOrF );
 
             }
         });

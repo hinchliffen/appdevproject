@@ -1,8 +1,16 @@
 package edu.wit.mobileapp.appdevproject;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.util.Log;
@@ -29,9 +37,13 @@ public class Activity4 extends AppCompatActivity {
     int milisecondsIn15Minutes = 900000;
     int milisecondsIn60Minutes = 3600000;
     int milisecondsIn75Minutes = 4500000;
-    RadioButton rb;
-    int maleOrFemale;
-    String mOrF;
+    SensorManager sensorManager;
+    Sensor countSensor;
+    TextView steps, distanceOutput;
+    double distance = 0.0;
+    String gender;
+    int totalSteps = 0;
+    double MagnitudePrevious = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,33 +67,55 @@ public class Activity4 extends AppCompatActivity {
         Log.v("myApp", "nameInput: " + bundle.getString("nameInput"));
         Log.v("myApp", "timeInput: " + bundle.getString("timeInput" ));
         Log.v("myApp", "timeOfDay: "+ bundle.getString("timeOfDay"));
+        Log.v("myApp", "gender: "+ bundle.getString("gender"));
 
-        Button activity4_btn = findViewById(R.id.button);
+        //find place to output
+        steps = findViewById(R.id.steps);
+        distanceOutput = findViewById(R.id.distance);
 
-        activity4_btn.setOnClickListener(new View.OnClickListener() {
+        gender = bundle.getString("gender");
+
+        sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+        countSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+
+        SensorEventListener stepDetector = new SensorEventListener() {
             @Override
-            public void onClick(View v) {
-                Intent newIntent = new Intent();
-                Bundle newBundle = new Bundle();
-                newIntent.setClass(Activity4.this, Steps.class);
+            public void onSensorChanged(SensorEvent event) {
+                if (event != null) {
+                    float x_acceleration = event.values[0];
+                    float y_acceleration = event.values[1];
+                    float z_acceleration = event.values[2];
 
-                //find the checked radiobutton in group
-                maleOrFemale = rg.getCheckedRadioButtonId();
+                    double Magnitude = Math.sqrt(x_acceleration * x_acceleration + y_acceleration * y_acceleration + z_acceleration * z_acceleration);
+                    double MagnitudeDelta = Magnitude - MagnitudePrevious;
+                    MagnitudePrevious = Magnitude;
 
-                //associate button with id
-                rb = findViewById(maleOrFemale);
-                mOrF = rb.getText().toString();
+                    if (MagnitudeDelta > 6) {
+                        totalSteps++;
+                    }
+                    steps.setText(String.valueOf(totalSteps));
+                    Log.v("myApp", "Sensor event: Step count: " + totalSteps);
 
-                //put string in bundle
-                newBundle.putString("gender", mOrF);
-                newIntent.putExtras(newBundle);
+                    //calculation of stride length to determine distance based on
+                    // average gender stride length
+                    if (gender.equals("Male")) {
+                        distance = Math.round((((totalSteps * 2.5) / 5280)*100.0)/100.0);
 
-                startActivity(newIntent);
-                finish();
+                        Log.v("myApp", "Distance Male: " + distance);
+                    } else {
+                        distance = Math.round((((totalSteps * 2.5) / 5280)*100.0)/100.0);
+                        Log.v("myApp", "Distance Female: " + distance);
+                    }
+                    distanceOutput.setText(distance + " miles");
+                }
             }
-        });
 
-        Log.v("myApp", "Activity4 button clicked");
+            @Override
+            public void onAccuracyChanged(Sensor sensor, int accuracy) {
+                Log.v("myApp", "Accuracy Changed: Sensor: " + sensor + " ; accuracy: " + accuracy);
+            }
+        };
+        sensorManager.registerListener(stepDetector, countSensor, SensorManager.SENSOR_DELAY_NORMAL);
 
         //timer
         timerText = (TextView) findViewById(R.id.textView2);
@@ -314,5 +348,37 @@ public class Activity4 extends AppCompatActivity {
         Log.v("myApp", "onCreate finished running - Running Activity4");
 
 
+    }
+
+    //saves steps to shared preferences so data is not erased when you close the app
+    protected void onPause() {
+        super.onPause();
+
+        SharedPreferences sharedPreferences = getPreferences(MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.clear();
+
+        editor.putInt("stepCount", totalSteps);
+        editor.apply();
+    }
+
+    //saves steps to shared preferences so data is not erased when you close the app
+    protected void onStop() {
+        super.onStop();
+
+        SharedPreferences sharedPreferences = getPreferences(MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.clear();
+
+        editor.putInt("stepCount", totalSteps);
+        editor.apply();
+    }
+
+
+    protected void onResume() {
+        super.onResume();
+
+        SharedPreferences sharedPreferences = getPreferences(MODE_PRIVATE);
+        totalSteps = sharedPreferences.getInt("stepCount", 0);
     }
 }

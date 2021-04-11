@@ -28,7 +28,7 @@ public class Activity3 extends AppCompatActivity {
 
                 intent.putExtras(bundle);
                 startActivity(intent);
-
+                finish();
 
                 Log.v("myApp", "Activity3 button is clicked");
             }

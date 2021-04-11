@@ -9,7 +9,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ActivitySwitch">
-        <activity android:name=".Steps" />
         <activity android:name=".Activity4" />
         <activity android:name=".Activity3" />
         <activity android:name=".Activity2" />
