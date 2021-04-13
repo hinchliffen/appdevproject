@@ -35,6 +35,7 @@ public class Activity4 extends AppCompatActivity {
     TextView nameOutput, timeOutput, timerText;
     int intervalNumber = 0;
     int milisecondsIn15Minutes = 900000;
+    int milisecondsIn30Minutes = 1800000;
     int milisecondsIn60Minutes = 3600000;
     int milisecondsIn75Minutes = 4500000;
     SensorManager sensorManager;
@@ -242,7 +243,7 @@ public class Activity4 extends AppCompatActivity {
                             if (selectedInterval.equals("1 x 30 minutes")) {//If user selected 1x30 interval
                                 Log.v("myApp", "1x30 interval code executing");
                                 nameOutput.setText("EXERCISE NOW!!!");
-                                new CountDownTimer(60000+60000+60000, 1000) {
+                                new CountDownTimer(milisecondsIn30Minutes, 1000) {
                                     public void onTick(long millisUntilFinished) {
                                         timerText.setText("seconds til you can go on Insta again: " + millisUntilFinished / 1000);
                                     }
