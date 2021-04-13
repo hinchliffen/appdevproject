@@ -2,6 +2,8 @@ package edu.wit.mobileapp.appdevproject;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.util.Log;
@@ -25,6 +27,9 @@ public class Activity4 extends AppCompatActivity {
     int milisecondsIn15Minutes = 900000;
     int milisecondsIn60Minutes = 3600000;
     int milisecondsIn75Minutes = 4500000;
+    String uname;
+    String time = "";
+    String timeOfDay = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,9 +63,9 @@ public class Activity4 extends AppCompatActivity {
         myspinner2.setAdapter(myAdapter2);
 
         //getting information from EditText in bundle
-        String uname = bundle.getString("nameInput");
-        String time = bundle.getString("timeInput");
-        String timeOfDay = bundle.getString("timeOfDay");
+        uname = bundle.getString("nameInput");
+        time = bundle.getString("timeInput");
+        timeOfDay = bundle.getString("timeOfDay");
 
         //find place to output and print
         nameOutput = (TextView) findViewById(R.id.title4);
@@ -102,13 +107,9 @@ public class Activity4 extends AppCompatActivity {
                     }
                     String startTime;
                     if (intervalNumber == 0) {
-                        String time = bundle.getString("timeInput");
-                        String timeOfDay = bundle.getString("timeOfDay");
                         startTime = time + timeOfDay;
                     }
                     else if (intervalNumber == 1) { //i dont think this elseif block ever runs but im scared to delete it
-                        String time = bundle.getString("timeInput");
-                        String timeOfDay = bundle.getString("timeOfDay");
                         startTime = time + timeOfDay;
                         SimpleDateFormat format = new SimpleDateFormat("hh:mmaa");
                         try {
@@ -120,8 +121,6 @@ public class Activity4 extends AppCompatActivity {
                         }
                     }
                     else {
-                        String time = bundle.getString("timeInput");
-                        String timeOfDay = bundle.getString("timeOfDay");
                         startTime = time + timeOfDay;
                     }
                     //Now clean startTime format
@@ -293,6 +292,18 @@ public class Activity4 extends AppCompatActivity {
 
         Log.v("myApp", "onCreate finished running - Running Activity4");
 
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState)
+    {
+        super.onSaveInstanceState(outState);
+        SharedPreferences pref =  getApplicationContext().getSharedPreferences("shared_prefs", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = pref.edit();
+        editor.putString("Name", uname);
+        editor.putString("Time", time);
+        editor.putString("TimeOfDay", timeOfDay);
+        editor.apply();
     }
 }
 
