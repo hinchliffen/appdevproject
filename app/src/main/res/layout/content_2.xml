@@ -11,29 +11,29 @@
         android:layout_width="165dp"
         android:layout_height="49dp"
         android:text="@string/get_started"
-        android:textColor="#000000"
+        android:textColor="@color/white"
         android:textSize="32sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.083" />
+        app:layout_constraintVertical_bias="0.079" />
 
     <EditText
         android:id="@+id/editTextNumber1"
         android:layout_width="189dp"
         android:layout_height="43dp"
+        android:autofillHints="Aa"
+        android:background="@color/grey"
         android:ems="10"
         android:inputType="text"
-        android:textColor="#000000"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.418"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.254"
-        android:autofillHints="" />
+        app:layout_constraintVertical_bias="0.254" />
 
     <EditText
         android:id="@+id/editTextTime"
@@ -41,6 +41,8 @@
         android:layout_height="48dp"
         android:ems="10"
         android:inputType="time"
+        android:textColor="@color/white"
+        android:background="@color/grey"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.289"
@@ -53,6 +55,7 @@
         android:id="@+id/radioGroup2"
         android:layout_width="127dp"
         android:layout_height="42dp"
+        android:background="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.669"
@@ -65,14 +68,16 @@
             android:layout_width="wrap_content"
             android:layout_height="21dp"
             android:text="@string/am"
-            android:textColor="#000000" />
+            android:textColor="@color/white"
+            android:buttonTint="@color/white" />
 
         <RadioButton
             android:id="@+id/radioButton"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="20dp"
             android:text="@string/pm"
-            android:textColor="#000000" />
+            android:textColor="@color/white"
+            android:buttonTint="@color/white"/>
     </RadioGroup>
 
     <TextView
@@ -80,7 +85,7 @@
         android:layout_width="171dp"
         android:layout_height="21dp"
         android:text="@string/time_to_exercise_focus"
-        android:textColor="#000000"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.387"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -93,7 +98,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/name"
-        android:textColor="#000000"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.251"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -117,14 +122,16 @@
             android:layout_width="wrap_content"
             android:layout_height="21dp"
             android:text="@string/male"
-            android:textColor="#000000" />
+            android:textColor="@color/white"
+            android:buttonTint="@color/white" />
 
         <RadioButton
             android:id="@+id/radioButtonFemale"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/female"
-            android:textColor="#000000" />
+            android:textColor="@color/white"
+            android:buttonTint="@color/white" />
     </RadioGroup>
 
     <TextView
@@ -132,7 +139,7 @@
         android:layout_width="105dp"
         android:layout_height="41dp"
         android:text="@string/gender"
-        android:textColor="#000000"
+        android:textColor="@color/white"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.303"

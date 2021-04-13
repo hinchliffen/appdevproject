@@ -59,8 +59,8 @@ public class Activity4 extends AppCompatActivity {
         Spinner mySpinner = findViewById(R.id.spinner1);
 
         ArrayAdapter<String> myAdapter = new ArrayAdapter<>(Activity4.this,
-                android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.names));
-        myAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                R.layout.spinner_item, getResources().getStringArray(R.array.names));
+        myAdapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
         mySpinner.setAdapter(myAdapter);
 
         Log.v("myApp", "This is what Activity4 has access to from the bundle: ");
