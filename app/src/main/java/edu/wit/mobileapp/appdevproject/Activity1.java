@@ -51,6 +51,7 @@ public class Activity1 extends AppCompatActivity {
 
                 intent.putExtras(bundle);
                 startActivity(intent);
+                finish();
 
                 Log.v("myApp", "Activity1 button is clicked");
             }
