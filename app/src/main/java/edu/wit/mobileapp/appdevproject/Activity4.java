@@ -385,9 +385,6 @@ public class Activity4 extends AppCompatActivity {
         editor.putString("TimeOfDay", timeOfDay);
         editor.apply();
     }
-}
-
-
 
     protected void onResume() {
         super.onResume();
