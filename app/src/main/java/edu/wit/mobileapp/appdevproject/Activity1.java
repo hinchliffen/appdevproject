@@ -60,5 +60,4 @@ public class Activity1 extends AppCompatActivity {
 
     }
 
-
 }

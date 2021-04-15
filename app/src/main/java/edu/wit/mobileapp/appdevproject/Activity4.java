@@ -305,5 +305,6 @@ public class Activity4 extends AppCompatActivity {
         editor.putString("TimeOfDay", timeOfDay);
         editor.apply();
     }
+
 }
 
