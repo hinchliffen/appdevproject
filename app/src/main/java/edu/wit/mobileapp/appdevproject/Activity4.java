@@ -91,7 +91,7 @@ public class Activity4 extends AppCompatActivity {
                     double MagnitudeDelta = Magnitude - MagnitudePrevious;
                     MagnitudePrevious = Magnitude;
 
-                    if (MagnitudeDelta > 6) {
+                    if (MagnitudeDelta > 9.811) {
                         totalSteps++;
                     }
                     steps.setText(String.valueOf(totalSteps));
