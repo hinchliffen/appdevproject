@@ -18,6 +18,7 @@ public class Activity3 extends AppCompatActivity {
         setContentView(R.layout.content_3);
         Button activity3_btn = (Button) findViewById(R.id.activity3_button);
 
+        //Keep the same intent and just continue onto Activity 4
         activity3_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -25,11 +26,9 @@ public class Activity3 extends AppCompatActivity {
                 intent.setClass(Activity3.this, Activity4.class);
 
                 Bundle bundle = intent.getExtras();
-
-                intent.putExtras(bundle);
                 startActivity(intent);
                 finish();
-
+                //Log Statement to notify the developer what executed
                 Log.v("myApp", "Activity3 button is clicked");
             }
         });

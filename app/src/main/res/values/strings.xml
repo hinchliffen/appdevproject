@@ -6,7 +6,6 @@
     <string name="intervals">Exercise intervals:</string>
 
     <string name="move">Move!</string>
-    <string name="lgs">Let\'s get started!</string>
     <string name="name">Name:</string>
     <string name="time_to_exercise_focus">Time to Exercise Focus:</string>
     <string name="am">AM</string>
@@ -17,21 +16,17 @@
     <string name="see_results">See Results</string>
     <string name="gender">Gender:</string>
     <string name="textview">TextView</string>
-    <string name="congratulations">Congratulations,\n you\'ve started your exercise focused journey!</string>
-    <string name="go_to_main_app_page">Go to Main App Page</string>
-    <string name="step_count">Step Count:</string>
     <string name="_0">0</string>
     <string name="distance">Distance:</string>
     <string name="_0_miles">0 miles</string>
     <string name="success">Success!</string>
+    <string name="steps">Steps:</string>
+    <string name="progress">Progress:</string>
+    <string name="line">____________________________________________</string>
+    <string name="go_to_main_app_page">Go to Main App Page</string>
     <string-array name="names">
         <item>1 x 30 minutes</item>
         <item>2 x 15 minutes</item>
         <item>3 x 10 minutes</item>
-    </string-array>
-    <string-array name="names2">
-        <item>1 Hour</item>
-        <item>2 Hours</item>
-        <item>3 Hours</item>
     </string-array>
 </resources>
