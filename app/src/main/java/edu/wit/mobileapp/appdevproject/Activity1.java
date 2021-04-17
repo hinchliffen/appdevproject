@@ -18,16 +18,14 @@ public class Activity1 extends AppCompatActivity {
         setContentView(R.layout.content_1);
         Button activity1_btn = (Button)findViewById(R.id.activity1_button);
 
+        //go to Activity 2
         activity1_btn.setOnClickListener(new View.OnClickListener(){
             @Override public void onClick(View v) {
                 Intent intent= new Intent();
                 intent.setClass(Activity1.this, Activity2.class);
 
                 Bundle bundle= new Bundle();
-                bundle.putString("name","Michael");
-                bundle.putInt("age", 22);
 
-                intent.putExtras(bundle);
                 startActivity(intent);
                 finish();
 

@@ -37,6 +37,7 @@ public class Activity2 extends AppCompatActivity {
         //associate button with id
         rb = findViewById(maleOrFemale);
 
+        //Add data to the bundle and go to Activity 3
         activity2_btn.setOnClickListener(new View.OnClickListener(){
             @Override public void onClick(View v) {
                 Intent intent= new Intent();
@@ -66,7 +67,7 @@ public class Activity2 extends AppCompatActivity {
                 startActivity(intent);
                 finish();
 
-                //LogV statements to better see what is data is being sent between Activities
+                //LogV statements to better see what data is being sent between Activities
                 Log.v("myApp", "Activity2 button is clicked");
                 Log.v("myApp", "This is what Activity2 bundled: ");
                 Log.v("myApp", "nameInput: "+ nameInput );

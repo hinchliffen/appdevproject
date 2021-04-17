@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/line"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Activity4">
@@ -10,23 +11,23 @@
         android:id="@+id/title4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="35sp"
         android:textColor="@color/white"
+        android:textSize="35sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/time"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.148"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.782"
-        />
+        app:layout_constraintVertical_bias="0.782" />
 
     <TextView
         android:id="@+id/time"
-        android:textColor="@color/white"
         android:layout_width="317dp"
         android:layout_height="41dp"
         android:layout_marginTop="132dp"
         android:text="@string/exercise_time"
+        android:textColor="#9AE83F"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.734"
@@ -35,49 +36,49 @@
 
     <TextView
         android:id="@+id/duration"
-        android:textColor="@color/white"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="96dp"
+        android:layout_marginTop="92dp"
         android:text="@string/intervals"
+        android:textColor="#9FED44"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.278"
+        app:layout_constraintHorizontal_bias="0.315"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/time" />
 
     <Spinner
         android:id="@+id/spinner1"
-        android:layout_width="200dp"
-        android:layout_height="31dp"
-        android:layout_marginTop="36dp"
+        android:layout_width="203dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="32dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.227"
+        app:layout_constraintHorizontal_bias="0.412"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/duration"
-        tools:listitem="@layout/spinner_item"/>
+        tools:listitem="@layout/spinner_item" />
 
     <TextView
         android:id="@+id/timeinput"
-        android:textColor="@color/white"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="160dp"
+        android:layout_height="46dp"
         android:layout_marginTop="34dp"
         android:layout_marginBottom="27dp"
+        android:textColor="@color/white"
         android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/duration"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.148"
+        app:layout_constraintHorizontal_bias="0.382"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/time"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="1.0" />
 
     <TextView
         android:id="@+id/textView2"
-        android:textColor="@color/white"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/textview"
+        android:textColor="#00BCD4"
         app:layout_constraintBottom_toTopOf="@+id/time"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.47"
@@ -87,28 +88,25 @@
 
     <TextView
         android:id="@+id/results"
-        android:textColor="@color/white"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
         android:layout_marginBottom="208dp"
-        android:text="Progress:"
+        android:text="@string/progress"
+        android:textColor="@color/white"
         android:textSize="30sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.459"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/radioGroup2"
-        app:layout_constraintVertical_bias="0.094" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/stepsTitle"
-        android:textColor="@color/white"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="32dp"
-        android:text="Steps: "
+        android:text="@string/steps"
+        android:textColor="#9EE64B"
         android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/distanceTitle"
         app:layout_constraintEnd_toEndOf="parent"
@@ -119,11 +117,11 @@
 
     <TextView
         android:id="@+id/distanceTitle"
-        android:textColor="@color/white"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="56dp"
-        android:text="Distance: "
+        android:text="@string/distance"
+        android:textColor="#A3EF4A"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -132,11 +130,11 @@
 
     <TextView
         android:id="@+id/steps"
-        android:textColor="@color/white"
         android:layout_width="60dp"
         android:layout_height="30dp"
         android:layout_marginTop="56dp"
-        android:text="0"
+        android:text="@string/_0"
+        android:textColor="@color/white"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -147,10 +145,10 @@
 
     <TextView
         android:id="@+id/distance"
-        android:textColor="@color/white"
         android:layout_width="85dp"
         android:layout_height="30dp"
-        android:text="0 miles"
+        android:text="@string/_0_miles"
+        android:textColor="@color/white"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -158,6 +156,21 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/steps"
         app:layout_constraintVertical_bias="0.344" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="384dp"
+        android:layout_height="44dp"
+        android:layout_marginTop="48dp"
+        android:layout_marginBottom="23dp"
+        android:text="@string/line"
+        android:textColor="#00BCD4"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/results"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spinner1" />
 
     <!--    <Button-->
     <!--        android:id="@+id/activity3_button"-->

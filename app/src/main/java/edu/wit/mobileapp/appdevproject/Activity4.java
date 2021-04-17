@@ -64,21 +64,24 @@ public class Activity4 extends AppCompatActivity {
         myAdapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
         mySpinner.setAdapter(myAdapter);
 
+        //Log Statements to see what Activity4 is using from the bundle
         Log.v("myApp", "This is what Activity4 has access to from the bundle: ");
         Log.v("myApp", "nameInput: " + bundle.getString("nameInput"));
         Log.v("myApp", "timeInput: " + bundle.getString("timeInput" ));
         Log.v("myApp", "timeOfDay: "+ bundle.getString("timeOfDay"));
         Log.v("myApp", "gender: "+ bundle.getString("gender"));
 
-        //find place to output
+        //find place to output steps and distance
         steps = findViewById(R.id.steps);
         distanceOutput = findViewById(R.id.distance);
 
         gender = bundle.getString("gender");
 
+        //Creating Sensor and SensorManager variables for the accelerometer used for counting steps
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         countSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
 
+        //defines what to do when the sensor senses a change
         SensorEventListener stepDetector = new SensorEventListener() {
             @Override
             public void onSensorChanged(SensorEvent event) {
@@ -87,14 +90,19 @@ public class Activity4 extends AppCompatActivity {
                     float y_acceleration = event.values[1];
                     float z_acceleration = event.values[2];
 
+                    //Calculating the magnitude of the acceleration
                     double Magnitude = Math.sqrt(x_acceleration * x_acceleration + y_acceleration * y_acceleration + z_acceleration * z_acceleration);
                     double MagnitudeDelta = Magnitude - MagnitudePrevious;
                     MagnitudePrevious = Magnitude;
 
+                    //9.81 is acceleration of gravity so anything greater than that would be considered
+                        //a step
                     if (MagnitudeDelta > 9.811) {
                         totalSteps++;
                     }
                     steps.setText(String.valueOf(totalSteps));
+
+                    //Logs step count
                     Log.v("myApp", "Sensor event: Step count: " + totalSteps);
 
                     //calculation of stride length to determine distance based on
@@ -352,6 +360,7 @@ public class Activity4 extends AppCompatActivity {
     }
 
     //saves steps to shared preferences so data is not erased when you close the app
+    //useful for when apps communicate with each other
     protected void onPause() {
         super.onPause();
 
@@ -364,6 +373,7 @@ public class Activity4 extends AppCompatActivity {
     }
 
     //saves steps to shared preferences so data is not erased when you close the app
+    //useful for when apps communicate with each other
     protected void onStop() {
         super.onStop();
 
@@ -375,7 +385,7 @@ public class Activity4 extends AppCompatActivity {
         editor.apply();
     }
 
-
+    //retrieves steps from last session so you can keep adding to them
     protected void onResume() {
         super.onResume();
 
