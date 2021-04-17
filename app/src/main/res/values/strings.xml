@@ -27,6 +27,5 @@
     <string-array name="names">
         <item>1 x 30 minutes</item>
         <item>2 x 15 minutes</item>
-        <item>3 x 10 minutes</item>
     </string-array>
 </resources>
